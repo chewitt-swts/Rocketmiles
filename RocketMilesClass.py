@@ -23,7 +23,7 @@ class RocketMiles:
     def open_rocketMiles(self):
         try:
             self.driver.get('http://www.rocketmiles.com')
-            print('Rocketmiles.com has opened successfully.')
+            print('Precondition: Rocketmiles.com has opened successfully.')
         except Exception as err:
             print(str(err))
 
@@ -31,15 +31,23 @@ class RocketMiles:
     def open_search_page(self):
         try:
             self.driver.get('https://www.rocketmiles.com/search?longitude=-118.253426&latitude=34.05219&placeId=43&query=Los%20Angeles,%20CA&source=HSS&checkIn=11%2F21%2F2019&checkOut=11%2F25%2F2019&program=united&guests=1&rooms=1&currency=USD&includePromoIneligible')
-            print('Search Page loaded with smoke test data has opened successfully.')
+            print('Precondition: Search Page loaded with smoke test data has opened successfully.')
         except Exception as err:
             print(str(err))
 
 # Creating a helper method to reach the Hotel Details page. This method can be called in order to independently run TCIDs 11-12, which would otherwise be dependent on running TCIDs 1-10.
     def open_hotel_details(self):
         try:
-            self.driver.get('https://www.rocketmiles.com/details?averagePrice=637&checkIn=11~2F21~2F2019&checkOut=11~2F25~2F2019&currency=USD&guests=1&id=45381&latitude=34.05219&longitude=-118.253426&program=united&placeId=43&query=Los%20Angeles,%20CA&rewardAmount=32000&rooms=1&source=HSS&searchId=b8b032b7-4924-4662-8013-0f9dc86a5562')
-            print('Hotel Details page has opened successfully.')
+            self.driver.get('http://rocketmiles.com/details?averagePrice=680&checkIn=11~2F21~2F2019&checkOut=11~2F25~2F2019&currency=USD&guests=1&id=775459&latitude=34.0522342&longitude=-118.2436849&program=united&placeId=ChIJE9on3F3HwoAR9AhGJW_fL-I&query=Los%20Angeles,%20CA,%20USA&rewardAmount=31000&rooms=1&source=GOOGLE&badge=travelerfavorite&searchId=977569e0-ea17-47ee-8d9a-f92d7bf83250')
+            print('Precondition: Hotel Details page has opened successfully.')
+        except Exception as err:
+            print(str(err))
+
+# Creating a helper method to reach the Checkout page. This method can be called in order to independently run TCIDs 11-12, which would otherwise be dependent on running TCIDs 1-13.
+    def open_checkout_page(self):
+        try:
+            self.driver.get('https://www.rocketmiles.com/booking?averagePrice=637&checkIn=11~2F21~2F2019&checkOut=11~2F25~2F2019&currency=USD&guests=1&id=45381_e2263db5f6ad185fd56b20e3c3d4153547654fe3eb63705f08d64e0047d5d459&latitude=34.05219&longitude=-118.253426&placeId=43&program=united&query=Los%20Angeles,%20CA&rewardAmount=30000&rooms=1&source=HSS&hotelId=45381&defaultRoomPrice=637&defaultRewardAmount=30000&searchId=8f3ba5a2-288e-4e6e-8a97-052eff7d53be')
+            print('Precondition: Checkout page has opened successfully.')
         except Exception as err:
             print(str(err))
 
@@ -57,9 +65,10 @@ class RocketMiles:
         try:
             closeButton = self.driver.find_element_by_css_selector('#new-sign-up-modal > div > div.modal-header > button')
             closeButton.click()
-            print('The close button for the sign up popup has been clicked.')
+            print('Precondition: The close button for the sign up popup has been clicked.')
             time.sleep(3)
         except Exception as err:
+            print('The sign up popup was not located. Proceeding with next test.')
             print(str(err))
 
     def close_cookie_banner(self):
@@ -68,7 +77,7 @@ class RocketMiles:
             #okButton = self.driver.find_element_by_xpath('//*[@class="btn cookie-banner-button ng-scope"]')
             okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="btn cookie-banner-button ng-scope"]')))
             okButton.click()
-            print('The ok button for the cookie banner has been clicked.')
+            print('Precondition: The ok button for the cookie banner has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -212,13 +221,15 @@ class RocketMiles:
             miles = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "Miles")]')))
             miles.click()
             print('The miles option was clicked from the sort by dropdown menu.')
+            time.sleep(2)
         except Exception as err:
             print(str(err))
 
 #Creating a method to select the first listing that appears after sorting results by executing click_miles for TCID 10.
     def select_hotel(self):
         try:
-            selectHotel = self.driver.find_element_by_xpath('//div[@class="rm-btn-orange ng-scope"]')
+            #selectHotel = self.driver.find_element_by_xpath('//div[@class="rm-btn-orange ng-scope"]')
+            selectHotel = wait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//div[@class="rm-btn-orange ng-scope"]')))
             selectHotel.click()
             print('1st hotel listing has been clicked.')
         except Exception as err:
@@ -236,12 +247,14 @@ class RocketMiles:
 #Creating a method to click the Select a Room button on the hotel details page for TCID 11
     def click_select_room_button(self):
         try:
-            #selectButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Select a Room")]')))
-            selectButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#details-page > div.content.ng-scope > div > div.row > div.md-right-container.col-md-4.visible-md-block.visible-lg-block > gofr-trip-summary > div > div > div > div > div:nth-child(9) > button')))
+            time.sleep(3)
+            #selectButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="rm-btn-green open-rooms-btn"]')))
+            #selectButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#details-page > div.content.ng-scope > div > div.row > div.md-right-container.col-md-4.visible-md-block.visible-lg-block > gofr-trip-summary > div > div > div > div > div:nth-child(9) > button')))
+            selectButton = self.driver.find_element_by_css_selector('span[class="rm-animate-fade ng-scope"]')
             selectButton.click()
             print('Select a Room button has been clicked.')
         except Exception as err:
-            print(str(err))
+            print(err)
 
 #Creating a method to click the View button next to the 1st room listing for TCID 12.
     def select_view_button(self):
@@ -261,4 +274,141 @@ class RocketMiles:
         except Exception as err:
             print(str(err))
 
+#Creating a method to select the Guest First Name field for TCID 14
+    def select_guest_first_name(self):
+        try:
+            guestFirstName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'guestFirstName')))
+            guestFirstName.click()
+            print('The guest first name field has been clicked.')
+        except Exception as err:
+            print(str(err))
 
+#Creating a method to type "John" into the Guest First Name field for TCIDs 14, 16, and 22.
+    def type_first_name(self):
+        try:
+            firstName = action(self.driver).send_keys('John').perform()
+            print('The test data was typed into the first name field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the Guest Last Name field for TCID 15.
+    def select_guest_last_name(self):
+        try:
+            guestLastName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'guestLastName')))
+            guestLastName.click()
+            print('The guest last name field has been clicked.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to type "Smith" into the Guest Last Name field for TCIDs 15, 17, and 23.
+    def type_last_name(self):
+        try:
+            lastName = action(self.driver).send_keys('Smith').perform()
+            print('The test data was typed into the last name field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the Your First Name field for TCID 16.
+    def select_your_first_name(self):
+        try:
+            firstName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'firstname')))
+            firstName.click()
+            print('Your first name field has been clicked.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the Your Last Name field for TCID 17.
+    def select_your_last_name(self):
+        try:
+            lastName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'lastname')))
+            lastName.click()
+            print('Your last name field has been clicked.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the email address field for TCID 18.
+    def select_email_address(self):
+        try:
+            emailField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newUsername')))
+            emailField.click()
+            print('The email address field has been clicked.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to type "test@test.com" into the Email Address field for TCID 18.
+    def type_email_address(self):
+        try:
+            emailAddress = action(self.driver).send_keys('test@test.com').perform()
+            print('The test data was typed into the Email Address field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the New Rocketmiles Password field for TCID 19.
+    def select_new_password(self):
+        try:
+            passwordField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newPassword')))
+            passwordField.click()
+            print('The new password field has been clicked.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to type "12345abc!#^" into the New Rocketmiles Password field for TCIDs 19 and 20.
+    def type_password(self):
+        try:
+            password = action(self.driver).send_keys('12345abc!#^').perform()
+            print('The test data was typed into the new password field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the Confirm Rocketmiles Password field for TCID 20.
+    def select_confirm_password(self):
+        try:
+            confirmPassword = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'confirmPassword')))
+            confirmPassword.click()
+            print('The confirm password field has been clicked.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the reward program account number for TCID 21. This method can be reused to select any reward program account number for exhaustive testing; it is not unique to the United MileagePlus account.
+    def select_reward_account(self):
+        try:
+            accountField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'accountNumber')))
+            accountField.click()
+            print("The rewards program account number field has been clicked.")
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to type "123456789a" into the reward program account number for TCID 21.
+    def type_reward_account(self):
+        try:
+            accountNumber = action(self.driver).send_keys('123456789a').perform()
+            print('The test data was typed into the rewards program account number field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the rewards program first name field for TCID 22.
+    def select_reward_first_name(self):
+        try:
+            rewardFirst = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newRewardAccountFirstName')))
+            rewardFirst.click()
+            print('The rewards program First Name field has been clicked.')
+        except  Exception as err:
+            print(str(err))
+
+#Creating a method to select the rewards program last name field for TCID 23.
+    def select_reward_last_name(self):
+        try:
+            rewardLast = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newRewardAccountLastName')))
+            rewardLast.click()
+            print('The rewards program Last Name field has been clicked.')
+        except  Exception as err:
+            print(str(err))
+
+#Creating a method to select the credit card number field under the Credit Card Details section for TCID
+    def select_cc_number(self):
+        iframe = self.driver.find_element_by_id('eProtect-iframe')
+        self.driver.switch_to.frame(iframe)
+        ccNumber = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//input[@class="error-871 invalid"]')))
+        #ccNumber = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[class="error-871 invalid"]')))
+        ccNumber.click()
+        print('The credit card number field has been clicked.')
