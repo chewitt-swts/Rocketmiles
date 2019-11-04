@@ -4,16 +4,9 @@ import time
 RM = RocketMiles()
 
 #Sandbox Preconditions
-RM.open_rocketMiles()
-RM.close_popUp()
-RM.close_cookie_banner()
-RM.select_destination_field()
-RM.type_destination()
 
 #Sandbox
 
-
-'''
 #Smoke test
 #Preconditions
 RM.open_rocketMiles()
@@ -130,7 +123,6 @@ RM.switch_to_default_frame()
 #TCID
 RM.select_billing_zip()
 RM.type_billing_zip()
-'''
 
 '''
 #Preconditions for Hotel Details page tests, if they are run independently from the Main Page TCIDs (1-10).

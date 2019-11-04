@@ -97,11 +97,9 @@ class RocketMiles:
 
             destination1 = self.driver.find_element_by_css_selector('a[class="ng-binding ng-scope"]')
             destination1.click()
-            #action(self.driver).send_keys(Keys.ARROW_DOWN, Keys.ENTER).perform()
             print('The first option from the destination dropdown menu was selected.')
         except Exception as err:
             print(str(err))
-        #TODO create click_destination method to simulate an actual mouseclick.
 
 #Creating a method to select the rewards program field for TCID 2.
     def select_rewards(self):
@@ -118,36 +116,35 @@ class RocketMiles:
             action(self.driver).send_keys('United MileagePlus').perform()
             print('The test data was typed into the rewards program field.')
             time.sleep(3)
-            action(self.driver).send_keys(Keys.ARROW_DOWN, Keys.ENTER).perform()
+
+            rewards1 = self.driver.find_element_by_css_selector('a[class="ng-binding ng-scope"]')
+            rewards1.click()
             print('The first option from the rewards program dropdown menu was selected.')
         except Exception as err:
             print(str(err))
-        #TODO create click_destination method to simulate an actual mouseclick.
 
 #Creating a method to click on the end date field for TCID 3.
     def click_end_date(self):
         try:
-            endDate = self.driver.find_element_by_css_selector('#rm3-home-page > div.content.ng-scope > div.container-fluid.search-section.ng-scope > div:nth-child(4) > div > form > div.booking-date-range.search-field.col-xs-12.col-sm-6 > div.checkout.booking-date')
+            endDate = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="checkout booking-date"]')))
             endDate.click()
             print('The end date field was clicked.')
         except Exception as err:
             print(str(err))
-        # TODO clean up the CSS selector
 
 #Creating a method to click on the start date field for TCID 4.
     def click_start_date(self):
         try:
-            startDate = self.driver.find_element_by_css_selector('#rm3-home-page > div.content.ng-scope > div.container-fluid.search-section.ng-scope > div:nth-child(4) > div > form > div.booking-date-range.search-field.col-xs-12.col-sm-6 > div.checkin.booking-date')
+            startDate = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="checkin booking-date"]')))
             startDate.click()
             print('The start date field was clicked.')
         except Exception as err:
             print(str(err))
-        #TODO clean up the CSS selector
 
 #Creating a method to select 11/21/2019 from the start date calendar for TCID 4.
     def click_November_21(self):
         try:
-            november21 = self.driver.find_element_by_css_selector('#ui-datepicker-div > table > tbody > tr:nth-child(4) > td:nth-child(5) > a')
+            november21 = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "21")]')))
             november21.click()
             print('November 21 was clicked.')
         except Exception as err:
@@ -156,7 +153,7 @@ class RocketMiles:
 #Creating a method to select 11/25/2019 from the end date calendar for TCID 5.
     def click_November_25(self):
         try:
-            november25 = self.driver.find_element_by_css_selector('#ui-datepicker-div > table > tbody > tr:nth-child(5) > td:nth-child(2) > a')
+            november25 = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "25")]')))
             november25.click()
             print('November 25 was clicked.')
         except Exception as err:
@@ -165,7 +162,8 @@ class RocketMiles:
 #Creating a method to select the guest field for TCID 6.
     def select_guest_field(self):
         try:
-            guest = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#rm3-home-page > div.content.ng-scope > div.container-fluid.search-section.ng-scope > div:nth-child(4) > div > form > div.adults.col-sm-3.search-field')))
+            #guest = self.driver.find_element_by_css_selector('div[class="adults col-sm-3 search-field"]')
+            guest =  wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="adults col-sm-3 search-field"]')))
             guest.click()
             print('The guest field has been clicked.')
         except Exception as err:
@@ -183,7 +181,7 @@ class RocketMiles:
 #Creating a method to select the rooms field for TCID 7.
     def select_rooms_field(self):
         try:
-            rooms = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#rm3-home-page > div.content.ng-scope > div.container-fluid.search-section.ng-scope > div:nth-child(4) > div > form > div.rooms.col-sm-3.search-field.ng-scope > div > div')))
+            rooms = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="rooms col-sm-3 search-field ng-scope"]')))
             rooms.click()
             print('The rooms field has been clicked.')
         except Exception as err:
@@ -201,7 +199,7 @@ class RocketMiles:
 #Creating a method to click the Search Properties button for TCID 8.
     def click_search_properties_button(self):
         try:
-            searchButton = self.driver.find_element_by_xpath('//div[@class="submit col-md-12"]')
+            searchButton = self.driver.find_element_by_css_selector('*[class="rm-btn-orange search-submit-btn"]')
             searchButton.click()
             print('Search Properties button has been clicked.')
         except Exception as err:
@@ -257,8 +255,6 @@ class RocketMiles:
     def click_select_room_button(self):
         try:
             time.sleep(3)
-            #selectButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="rm-btn-green open-rooms-btn"]')))
-            #selectButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#details-page > div.content.ng-scope > div > div.row > div.md-right-container.col-md-4.visible-md-block.visible-lg-block > gofr-trip-summary > div > div > div > div > div:nth-child(9) > button')))
             selectButton = self.driver.find_element_by_css_selector('span[class="rm-animate-fade ng-scope"]')
             selectButton.click()
             print('Select a Room button has been clicked.')
@@ -485,6 +481,7 @@ class RocketMiles:
     def switch_to_default_frame(self):
         try:
             self.driver.switch_to.default_content()
+            print('Switched back to default frame.')
         except Exception as err:
             print(str(err))
 
@@ -496,6 +493,7 @@ class RocketMiles:
             print('The billing zip code field has been selected.')
         except Exception as err:
             print(str(err))
+
 #Typing test data into the billing zip code field for TCID
     def type_billing_zip(self):
         try:
@@ -504,38 +502,3 @@ class RocketMiles:
             print('The billing zip code test data has been typed into the field.')
         except Exception as err:
             print(str(err))
-
-
-'''
-#Creating a method to select the credit card number field under the Credit Card Details section for TCID
-    def select_cc_field(self):
-        time.sleep(3)
-        iframe = self.driver.find_element_by_id('eProtect-iframe')
-        self.driver.switch_to.frame(iframe)
-        print('iFrame switched.')
-        ccField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'accountNumber')))
-        ccField.click()
-        print('The credit card number field has been clicked.')
-
-#Creating a method to type "0123456789876543210" into the credit card number for TCID
-    def type_cc_number(self):
-        try:
-            action(self.driver).send_keys('0123456789876543210').perform()
-            print('The test data was typed into the credit card number field.')
-        except Exception as err:
-            print(str(err))
-
-#Creating a method to select the credit card expiration month for TCID
-    def select_exp_month_field(self):
-        try:
-            iframe = self.driver.find_element_by_id('eProtect-iframe')
-            self.driver.switch_to.frame(iframe)
-        except Exception as err:
-            print(str(err))
-        try:
-            expirationField = self.driver.find_element_by_id('expMonth')
-            expirationField.click()
-            print('The credit card expiration month dropdown menu has been selected.')
-        except Exception as err:
-            print(str(err))
-'''
