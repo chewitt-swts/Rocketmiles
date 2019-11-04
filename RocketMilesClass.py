@@ -7,10 +7,11 @@ import time
 import random
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
+import logging
 
 class RocketMiles:
 
-    # Creating up our Selenium Webdriver settings for use in all test cases.
+    # Creating up our Selenium Webdriver and Chrome settings for use in all test cases.
     def __init__(self):
         self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_argument('-incognito')
@@ -18,6 +19,8 @@ class RocketMiles:
         self.chrome_options.add_argument('--disable-notifications')
         self.chrome_options.add_argument('--disable-popup-blocking')
         self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)
+
+        self.logger = logging.basicConfig(filename='rocketmiles.log', level=logging.DEBUG)
 
 #Creating a method to open the Rocketmiles website.
     def open_rocketMiles(self):
@@ -59,6 +62,7 @@ class RocketMiles:
         except Exception as err:
             print(str(err))
 
+#Creating a helper method to handle the sign up popup that occasionally appears on the Main Page when the page first loads. We need to close the popup in order to proceed with the test cases.
     def close_popUp(self):
         #time.sleep(5)
         try:
@@ -70,6 +74,7 @@ class RocketMiles:
             print('The sign up popup was not located. Proceeding with next test.')
             print(str(err))
 
+#Creating a helper method to close the cookie banner that appears at multiple locations through the app.
     def close_cookie_banner(self):
         try:
             #okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="btn cookie-banner-button ng-scope"]')))
@@ -78,6 +83,15 @@ class RocketMiles:
             print('Precondition: The ok button for the cookie banner has been clicked.')
         except Exception as err:
             print(str(err))
+
+#Creating a helper method to handle the possible error on the Checkout page, "Unfortunately, availability of this room changed when we reached out to finalize the reservation. We're sorry, and have alerted our systems team as well as our hotel partners to investigate. Please select a different hotel."
+    def checkout_return_search(self):
+        time.sleep(5)
+        try:
+            returnSearch = self.driver.find_element_by_css_selector('a[class="return-btn btn ng-scope"]')
+            returnSearch.click()
+        except Exception as err:
+             print(str(err))
 
 #Creating a method to select the destination field for TCID 1.
     def select_destination_field(self):
@@ -417,7 +431,7 @@ class RocketMiles:
             self.driver.switch_to.frame(iframe)
             print('iFrame switched.')
 
-            #Selecting the credit card number field for TCID
+            #Selecting the credit card number field and entering test data "0123456789876543210" for TCID 24.
             try:
                 #time.sleep(1)
                 ccField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'accountNumber')))
@@ -426,7 +440,7 @@ class RocketMiles:
             except Exception as err:
                 print(str(err))
 
-            #Selecting the credit card expiration month dropdown menu for TCID
+            #Selecting the credit card expiration month dropdown menu for TCID 25.
             try:
                 expMonthField = self.driver.find_element_by_id('expMonth')
                 expMonthField.click()
@@ -434,7 +448,7 @@ class RocketMiles:
             except Exception as err:
                 print(str(err))
 
-            #Selecting "July" as test data from the expiration month dropdown menu for TCID
+            #Selecting "July" as test data from the expiration month dropdown menu for TCID 25.
             try:
                 expirationMonth = self.driver.find_element_by_xpath('//option[@value="07"]')
                 expirationMonth.click()
@@ -442,7 +456,7 @@ class RocketMiles:
             except Exception as err:
                 print(str(err))
 
-            #Selecting the credit card expiration year dropdown menu for TCID
+            #Selecting the credit card expiration year dropdown menu for TCID 26.
             try:
                 expYearField = self.driver.find_element_by_id('expYear')
                 expYearField.click()
@@ -450,7 +464,7 @@ class RocketMiles:
             except Exception as err:
                 print(str(err))
 
-            #Selecting "2021" from the expiration year dropdown menu for TCID
+            #Selecting "2021" from the expiration year dropdown menu for TCID 26.
             try:
                 expirationYear = self.driver.find_element_by_xpath('//option[@value="21"]')
                 expirationYear.click()
@@ -458,7 +472,7 @@ class RocketMiles:
             except Exception as err:
                 print(str(err))
 
-            #Selecting the credit card security code field for TCID
+            #Selecting the credit card security code field for TCID 27.
             try:
                 time.sleep(2)
                 securityCodeField = self.driver.find_element_by_id('cvv')
@@ -467,7 +481,7 @@ class RocketMiles:
             except Exception as err:\
                 print(str(err))
 
-            #Typing test data into the security code field for TCID
+            #Typing test data into the security code field for TCID 27.
             try:
                 time.sleep(2)
                 action(self.driver).send_keys('012').perform()
@@ -485,7 +499,7 @@ class RocketMiles:
         except Exception as err:
             print(str(err))
 
-#Selecting the billing zip code field for TCID
+#Selecting the billing zip code field for TCID 28.
     def select_billing_zip(self):
         try:
             zipCodeField = self.driver.find_element_by_name('zipcode')
@@ -494,11 +508,22 @@ class RocketMiles:
         except Exception as err:
             print(str(err))
 
-#Typing test data into the billing zip code field for TCID
+#Typing test data into the billing zip code field for TCID 28.
     def type_billing_zip(self):
         try:
             time.sleep(2)
             action(self.driver).send_keys('60640').perform()
             print('The billing zip code test data has been typed into the field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to check the Terms and Conditions checkbox for TCID 29.
+    def click_terms_checkbox(self):
+        try:
+            time.sleep(5)
+            termsCheckbox = self.driver.find_element_by_xpath('//input[@id="agreeToTermsAndPolicies"]')
+            action(self.driver).move_to_element(termsCheckbox).click().perform()
+            #termsCheckbox.click()
+            print('The Terms and Conditions checkbox has been clicked.')
         except Exception as err:
             print(str(err))
