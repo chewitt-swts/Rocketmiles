@@ -4,33 +4,17 @@ import time
 RM = RocketMiles()
 
 #Sandbox Preconditions
-RM.open_checkout_page()
+RM.open_rocketMiles()
+RM.close_popUp()
 RM.close_cookie_banner()
+RM.select_destination_field()
+RM.type_destination()
 
 #Sandbox
-RM.select_guest_first_name()
-RM.type_first_name()
-RM.select_guest_last_name()
-RM.type_last_name()
-RM.select_your_first_name()
-RM.type_first_name()
-RM.select_your_last_name()
-RM.type_last_name()
-RM.select_email_address()
-RM.type_email_address()
-RM.select_new_password()
-RM.type_password()
-RM.select_confirm_password()
-RM.type_password()
-RM.select_reward_account()
-RM.type_reward_account()
-RM.select_reward_first_name()
-RM.type_first_name()
-RM.select_reward_last_name()
-RM.type_last_name()
-RM.select_cc_number()
+
 
 '''
+#Smoke test
 #Preconditions
 RM.open_rocketMiles()
 RM.close_popUp()
@@ -81,10 +65,8 @@ print('TCID 9 has been executed.')
 #TCID 10: Search Page - Can a user select the "Select Now" button for the first listing?
 RM.select_hotel()
 
-#Preconditions for Hotel Details page tests, if they are run independently from the Main Page TCIDs (1-10).
-#RM.open_hotel_details()
-#RM.new_reward_banner()
-#RM.close_cookie_banner()
+#Precondition for proceeding with smoke test
+RM.switch_tabs()
 
 #TCID 11: Hotel Details - Can a user select the Select A Room button?
 RM.click_select_room_button()
@@ -98,5 +80,62 @@ print('TCID 12 has been executed.')
 RM.select_button()
 print('TCID 13 has been executed.')
 
+#TCID 14: Checkout - Can a user enter a Guest First Name?
+RM.select_guest_first_name()
+RM.type_first_name()
+
+#TCID 15: Checkout - Can a user enter a Guest Last Name?
+RM.select_guest_last_name()
+RM.type_last_name()
+
+#TCID 16: Checkout - Can a user enter Your First Name?
+RM.select_your_first_name()
+RM.type_first_name()
+
+#TCID 17: Checkout - Can a user enter Your Last Name?
+RM.select_your_last_name()
+RM.type_last_name()
+
+#TCID 18: Checkout - Can a user enter an email address?
+RM.select_email_address()
+RM.type_email_address()
+
+#TCID 19: Checkout - Can a user enter a new password?
+RM.select_new_password()
+RM.type_password()
+
+#TCID 20: Checkout - Can a user confirm a new password?
+RM.select_confirm_password()
+RM.type_password()
+
+#TCID 21: Checkout - Can a user enter a United MileagePlus acount number?
+RM.select_reward_account()
+RM.type_reward_account()
+
+#TCID 22: Checkout - Can a user enter a United MileagePlus first name?
+RM.select_reward_first_name()
+RM.type_first_name()
+
+#TCID 23: Checkout - Can a user enter a United MileagePlus last name?
+RM.select_reward_last_name()
+RM.type_last_name()
+
+#TCID 24:
+time.sleep(3)
+RM.enter_cc_info()
+
+#Precondition
+RM.switch_to_default_frame()
+
+#TCID
+RM.select_billing_zip()
+RM.type_billing_zip()
+'''
+
+'''
+#Preconditions for Hotel Details page tests, if they are run independently from the Main Page TCIDs (1-10).
+#RM.open_hotel_details()
+#RM.new_reward_banner()
+#RM.close_cookie_banner()
 '''
 

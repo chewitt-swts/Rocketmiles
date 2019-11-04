@@ -59,11 +59,10 @@ class RocketMiles:
         except Exception as err:
             print(str(err))
 
-#TODO finish creating a method to close out of the sign up popup that sometimes appears on Main Page. When complete and integrated into test cases, add the incognito argument back to the init ChromeOptions section.
     def close_popUp(self):
-        time.sleep(5)
+        #time.sleep(5)
         try:
-            closeButton = self.driver.find_element_by_css_selector('#new-sign-up-modal > div > div.modal-header > button')
+            closeButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="close"]')))
             closeButton.click()
             print('Precondition: The close button for the sign up popup has been clicked.')
             time.sleep(3)
@@ -73,9 +72,8 @@ class RocketMiles:
 
     def close_cookie_banner(self):
         try:
-            #okButton = self.driver.find_element_by_css_selector('#rm3-home-page > gofr-cookie-banner > div > div:nth-child(2) > button')
-            #okButton = self.driver.find_element_by_xpath('//*[@class="btn cookie-banner-button ng-scope"]')
-            okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="btn cookie-banner-button ng-scope"]')))
+            #okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="btn cookie-banner-button ng-scope"]')))
+            okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="btn cookie-banner-button ng-scope"]')))
             okButton.click()
             print('Precondition: The ok button for the cookie banner has been clicked.')
         except Exception as err:
@@ -96,7 +94,10 @@ class RocketMiles:
             action(self.driver).send_keys('Los Angeles').perform()
             print('The test data was typed into the destination field.')
             time.sleep(3)
-            action(self.driver).send_keys(Keys.ARROW_DOWN, Keys.ENTER).perform()
+
+            destination1 = self.driver.find_element_by_css_selector('a[class="ng-binding ng-scope"]')
+            destination1.click()
+            #action(self.driver).send_keys(Keys.ARROW_DOWN, Keys.ENTER).perform()
             print('The first option from the destination dropdown menu was selected.')
         except Exception as err:
             print(str(err))
@@ -235,6 +236,14 @@ class RocketMiles:
         except Exception as err:
             print(str(err))
 
+#Creating a helper method to switch to a new tab.
+    def switch_tabs(self):
+        try:
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            print('Tab has been switched.')
+        except Exception as err:
+            print(str(err))
+
 #Creating a helper method to handle the optional popup banner that might appear on the Hotel Details page, if the reward amount has decreased. This method will click "Continue with the new reward offer" button in order to proceed with the next step in the test.
     def new_reward_banner(self):
         try:
@@ -355,7 +364,7 @@ class RocketMiles:
 #Creating a method to type "12345abc!#^" into the New Rocketmiles Password field for TCIDs 19 and 20.
     def type_password(self):
         try:
-            password = action(self.driver).send_keys('12345abc!#^').perform()
+            action(self.driver).send_keys('12345abc!#^').perform()
             print('The test data was typed into the new password field.')
         except Exception as err:
             print(str(err))
@@ -404,11 +413,129 @@ class RocketMiles:
         except  Exception as err:
             print(str(err))
 
+#Creating a method to enter credit card information for the Credit Card Details section of the Check Page for TCIDs
+    def enter_cc_info(self):
+        #Switching to the iframe which contains the credit card information fields.
+        try:
+            iframe = self.driver.find_element_by_id('eProtect-iframe')
+            self.driver.switch_to.frame(iframe)
+            print('iFrame switched.')
+
+            #Selecting the credit card number field for TCID
+            try:
+                #time.sleep(1)
+                ccField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'accountNumber')))
+                action(self.driver).click(ccField).send_keys('0123456789876543210').perform()
+                print('The credit card number field has been clicked.')
+            except Exception as err:
+                print(str(err))
+
+            #Selecting the credit card expiration month dropdown menu for TCID
+            try:
+                expMonthField = self.driver.find_element_by_id('expMonth')
+                expMonthField.click()
+                print('The credit card expiration month dropdown menu has been selected.')
+            except Exception as err:
+                print(str(err))
+
+            #Selecting "July" as test data from the expiration month dropdown menu for TCID
+            try:
+                expirationMonth = self.driver.find_element_by_xpath('//option[@value="07"]')
+                expirationMonth.click()
+                print('The credit card expiration month test data has been set from the dropdown menu options.')
+            except Exception as err:
+                print(str(err))
+
+            #Selecting the credit card expiration year dropdown menu for TCID
+            try:
+                expYearField = self.driver.find_element_by_id('expYear')
+                expYearField.click()
+                print('The credit card expiration year dropdown menu has been selected.')
+            except Exception as err:
+                print(str(err))
+
+            #Selecting "2021" from the expiration year dropdown menu for TCID
+            try:
+                expirationYear = self.driver.find_element_by_xpath('//option[@value="21"]')
+                expirationYear.click()
+                print('The credit card expiration year test data has been set from the dropdown menu options.')
+            except Exception as err:
+                print(str(err))
+
+            #Selecting the credit card security code field for TCID
+            try:
+                time.sleep(2)
+                securityCodeField = self.driver.find_element_by_id('cvv')
+                securityCodeField.click()
+                print('The credit card security code field has been selected.')
+            except Exception as err:\
+                print(str(err))
+
+            #Typing test data into the security code field for TCID
+            try:
+                time.sleep(2)
+                action(self.driver).send_keys('012').perform()
+                print('The credit card security code test data has been typed into the security code field.')
+            except Exception as err:
+                print(str(err))
+        except Exception as err:
+            print(str(err))
+
+#Switching out of the iframe to default browser frame.
+    def switch_to_default_frame(self):
+        try:
+            self.driver.switch_to.default_content()
+        except Exception as err:
+            print(str(err))
+
+#Selecting the billing zip code field for TCID
+    def select_billing_zip(self):
+        try:
+            zipCodeField = self.driver.find_element_by_name('zipcode')
+            zipCodeField.click()
+            print('The billing zip code field has been selected.')
+        except Exception as err:
+            print(str(err))
+#Typing test data into the billing zip code field for TCID
+    def type_billing_zip(self):
+        try:
+            time.sleep(2)
+            action(self.driver).send_keys('60640').perform()
+            print('The billing zip code test data has been typed into the field.')
+        except Exception as err:
+            print(str(err))
+
+
+'''
 #Creating a method to select the credit card number field under the Credit Card Details section for TCID
-    def select_cc_number(self):
+    def select_cc_field(self):
+        time.sleep(3)
         iframe = self.driver.find_element_by_id('eProtect-iframe')
         self.driver.switch_to.frame(iframe)
-        ccNumber = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//input[@class="error-871 invalid"]')))
-        #ccNumber = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[class="error-871 invalid"]')))
-        ccNumber.click()
+        print('iFrame switched.')
+        ccField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'accountNumber')))
+        ccField.click()
         print('The credit card number field has been clicked.')
+
+#Creating a method to type "0123456789876543210" into the credit card number for TCID
+    def type_cc_number(self):
+        try:
+            action(self.driver).send_keys('0123456789876543210').perform()
+            print('The test data was typed into the credit card number field.')
+        except Exception as err:
+            print(str(err))
+
+#Creating a method to select the credit card expiration month for TCID
+    def select_exp_month_field(self):
+        try:
+            iframe = self.driver.find_element_by_id('eProtect-iframe')
+            self.driver.switch_to.frame(iframe)
+        except Exception as err:
+            print(str(err))
+        try:
+            expirationField = self.driver.find_element_by_id('expMonth')
+            expirationField.click()
+            print('The credit card expiration month dropdown menu has been selected.')
+        except Exception as err:
+            print(str(err))
+'''
