@@ -85,11 +85,17 @@ With all system requirements satisfied, it’s time to pull the test scripts fro
 Before running anything, you’ll need to open the RocketMilesClas.py file and change the Webdriver filepath to your local filepath, which you saved above. To do so, find: 
 
   `  def __init__(self):
+  
         self.chrome_options = webdriver.ChromeOptions()
+        
         self.chrome_options.add_argument('-incognito')
+        
         self.chrome_options.add_argument("--start-maximized")
+        
         self.chrome_options.add_argument('--disable-notifications')
+        
         self.chrome_options.add_argument('--disable-popup-blocking')
+        
         self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)`
 
 You’ll want to find the line: 
