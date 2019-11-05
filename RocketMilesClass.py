@@ -18,7 +18,7 @@ class RocketMiles:
         self.chrome_options.add_argument('--disable-notifications')
         self.chrome_options.add_argument('--disable-popup-blocking')
     #Below is our driver object that we are storing our Webdriver in. Replace the filepath with the location of your local Webdriver.
-        self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)
+        self.driver = webdriver.Chrome(r'/home/hugo/Drivers/chromedriver', options=self.chrome_options)
 
         self.driver.implicitly_wait(3)
 
