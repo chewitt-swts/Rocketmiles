@@ -4,23 +4,23 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
-import random
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
-import logging
+
 
 class RocketMiles:
 
-    # Creating up our Selenium Webdriver and Chrome settings for use in all test cases.
+#Creating up our Selenium Webdriver and Chrome settings for use in all test cases.
     def __init__(self):
         self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_argument('-incognito')
         self.chrome_options.add_argument("--start-maximized")
         self.chrome_options.add_argument('--disable-notifications')
         self.chrome_options.add_argument('--disable-popup-blocking')
+    #Below is our driver object that we are storing our Webdriver in. Replace the filepath with the location of your local Webdriver.
         self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)
 
-        self.logger = logging.basicConfig(filename='rocketmiles.log', level=logging.DEBUG)
+        self.driver.implicitly_wait(3)
 
 #Creating a method to open the Rocketmiles website.
     def open_rocketMiles(self):
@@ -45,6 +45,7 @@ class RocketMiles:
             print('Precondition: Hotel Details page has opened successfully.')
         except Exception as err:
             print(str(err))
+        return
 
 # Creating a helper method to reach the Checkout page. This method can be called in order to independently run TCIDs 11-12, which would otherwise be dependent on running TCIDs 1-13.
     def open_checkout_page(self):
@@ -72,17 +73,15 @@ class RocketMiles:
             time.sleep(3)
         except Exception as err:
             print('The sign up popup was not located. Proceeding with next test.')
-            print(str(err))
 
 #Creating a helper method to close the cookie banner that appears at multiple locations through the app.
     def close_cookie_banner(self):
         try:
-            #okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="btn cookie-banner-button ng-scope"]')))
             okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="btn cookie-banner-button ng-scope"]')))
             okButton.click()
             print('Precondition: The ok button for the cookie banner has been clicked.')
         except Exception as err:
-            print(str(err))
+            print(err)
 
 #Creating a helper method to handle the possible error on the Checkout page, "Unfortunately, availability of this room changed when we reached out to finalize the reservation. We're sorry, and have alerted our systems team as well as our hotel partners to investigate. Please select a different hotel."
     def checkout_return_search(self):
@@ -91,7 +90,8 @@ class RocketMiles:
             returnSearch = self.driver.find_element_by_css_selector('a[class="return-btn btn ng-scope"]')
             returnSearch.click()
         except Exception as err:
-             print(str(err))
+            print(str(err))
+            raise Exception()
 
 #Creating a method to select the destination field for TCID 1.
     def select_destination_field(self):
@@ -222,7 +222,7 @@ class RocketMiles:
 #Creating a method to select the sort by field for TCID 9.
     def select_sort_by_field(self):
         try:
-            sortBy = wait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="sort-dropdown dropdown-toggle"]')))
+            sortBy = wait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="sort-dropdown dropdown-toggle"]')))
             sortBy.click()
             print('Sort By field has been clicked.')
         except Exception as err:
