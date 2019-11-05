@@ -50,27 +50,29 @@ On that webpage, locate the link for Chrome’s drivers. Download the driver fro
 
 <b>***Test Script Manifest</b>
 
-RocketMilesClass.py
+<i>RocketMilesClass.py</i>
+
 This file contains methods to interact with each element on the website, as well as helper methods to navigate through any test preconditions. 
+
 This file also contains all the Webdriver settings. You will need to update this file with your Webdriver’s local filepath. See the “Running the test cases” section.
 
-SmokeTestAllModules.py
+<i>SmokeTestAllModules.py</i>
 
 This file contains a test script to automate a smoke test all the way through the search, selection, and checkout process.
 
-SmokeTestMainPageModule.py
+<i>SmokeTestMainPageModule.py</i>
 
 This file contains a test script to automate a smoke test for the main search page only.
 
-SmokeTestSearchResultsModule.py
+<i>SmokeTestSearchResultsModule.py</i>
 
 This file contains a test script to automate a smoke test for the search results page only.
 
-SmokeTestHotelDetailsModule.py
+<i>SmokeTestHotelDetailsModule.py</i>
 
 This file contains a test script to automate a smoke test for the hotel details page only.
 
-SmokeTestCheckoutModule.py
+<i>SmokeTestCheckoutModule.py</i>
 
 This file contains a test script to automate a smoke test for the checkout page only.
 
