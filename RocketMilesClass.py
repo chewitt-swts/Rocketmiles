@@ -26,7 +26,7 @@ class RocketMiles:
     def open_rocketMiles(self):
         try:
             self.driver.get('http://www.rocketmiles.com')
-            print('Precondition: Rocketmiles.com has opened successfully.')
+            print('\t' + 'Precondition: Rocketmiles.com has opened successfully.')
         except Exception as err:
             print(str(err))
 
@@ -34,7 +34,7 @@ class RocketMiles:
     def open_search_page(self):
         try:
             self.driver.get('https://www.rocketmiles.com/search?longitude=-118.253426&latitude=34.05219&placeId=43&query=Los%20Angeles,%20CA&source=HSS&checkIn=11%2F21%2F2019&checkOut=11%2F25%2F2019&program=united&guests=1&rooms=1&currency=USD&includePromoIneligible')
-            print('Precondition: Search Page loaded with smoke test data has opened successfully.')
+            print('\t' + 'Precondition: Search Page loaded with smoke test data has opened successfully.')
         except Exception as err:
             print(str(err))
 
@@ -42,7 +42,7 @@ class RocketMiles:
     def open_hotel_details(self):
         try:
             self.driver.get('http://rocketmiles.com/details?averagePrice=680&checkIn=11~2F21~2F2019&checkOut=11~2F25~2F2019&currency=USD&guests=1&id=775459&latitude=34.0522342&longitude=-118.2436849&program=united&placeId=ChIJE9on3F3HwoAR9AhGJW_fL-I&query=Los%20Angeles,%20CA,%20USA&rewardAmount=31000&rooms=1&source=GOOGLE&badge=travelerfavorite&searchId=977569e0-ea17-47ee-8d9a-f92d7bf83250')
-            print('Precondition: Hotel Details page has opened successfully.')
+            print('\t' + 'Precondition: Hotel Details page has opened successfully.')
         except Exception as err:
             print(str(err))
         return
@@ -51,7 +51,7 @@ class RocketMiles:
     def open_checkout_page(self):
         try:
             self.driver.get('https://www.rocketmiles.com/booking?averagePrice=637&checkIn=11~2F21~2F2019&checkOut=11~2F25~2F2019&currency=USD&guests=1&id=45381_e2263db5f6ad185fd56b20e3c3d4153547654fe3eb63705f08d64e0047d5d459&latitude=34.05219&longitude=-118.253426&placeId=43&program=united&query=Los%20Angeles,%20CA&rewardAmount=30000&rooms=1&source=HSS&hotelId=45381&defaultRoomPrice=637&defaultRewardAmount=30000&searchId=8f3ba5a2-288e-4e6e-8a97-052eff7d53be')
-            print('Precondition: Checkout page has opened successfully.')
+            print('\t' + 'Precondition: Checkout page has opened successfully.')
         except Exception as err:
             print(str(err))
 
@@ -59,7 +59,7 @@ class RocketMiles:
     def close_browser(self):
         try:
            self.driver.quit()
-           print('The browser has closed.')
+           print('\t' + 'The browser has closed.')
         except Exception as err:
             print(str(err))
 
@@ -69,17 +69,17 @@ class RocketMiles:
         try:
             closeButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="close"]')))
             closeButton.click()
-            print('Precondition: The close button for the sign up popup has been clicked.')
+            print('\t' + 'Precondition: The close button for the sign up popup has been clicked.')
             time.sleep(3)
         except Exception as err:
-            print('The sign up popup was not located. Proceeding with next test.')
+            print('\t' + 'The sign up popup was not located. Proceeding with next test.')
 
 #Creating a helper method to close the cookie banner that appears at multiple locations through the app.
     def close_cookie_banner(self):
         try:
             okButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="btn cookie-banner-button ng-scope"]')))
             okButton.click()
-            print('Precondition: The ok button for the cookie banner has been clicked.')
+            print('\t' + 'Precondition: The ok button for the cookie banner has been clicked.')
         except Exception as err:
             print(err)
 
@@ -98,7 +98,7 @@ class RocketMiles:
         try:
             destination = wait(self.driver, 5).until(EC.element_to_be_clickable((By.NAME, 'locationSearch')))
             destination.click()
-            print('The destination field has been clicked.')
+            print('\t' + 'The destination field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -106,12 +106,12 @@ class RocketMiles:
     def type_destination(self):
         try:
             action(self.driver).send_keys('Los Angeles').perform()
-            print('The test data was typed into the destination field.')
+            print('\t' + 'The test data was typed into the destination field.')
             time.sleep(3)
 
             destination1 = self.driver.find_element_by_css_selector('a[class="ng-binding ng-scope"]')
             destination1.click()
-            print('The first option from the destination dropdown menu was selected.')
+            print('\t' + 'The first option from the destination dropdown menu was selected.')
         except Exception as err:
             print(str(err))
 
@@ -120,7 +120,7 @@ class RocketMiles:
         try:
             rewards = wait(self.driver, 5).until(EC.element_to_be_clickable((By.NAME, 'programAutosuggest')))
             rewards.click()
-            print('The rewards program field has been clicked.')
+            print('\t' + 'The rewards program field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -128,12 +128,12 @@ class RocketMiles:
     def type_rewards(self):
         try:
             action(self.driver).send_keys('United MileagePlus').perform()
-            print('The test data was typed into the rewards program field.')
+            print('\t' + 'The test data was typed into the rewards program field.')
             time.sleep(3)
 
             rewards1 = self.driver.find_element_by_css_selector('a[class="ng-binding ng-scope"]')
             rewards1.click()
-            print('The first option from the rewards program dropdown menu was selected.')
+            print('\t' + 'The first option from the rewards program dropdown menu was selected.')
         except Exception as err:
             print(str(err))
 
@@ -142,7 +142,7 @@ class RocketMiles:
         try:
             endDate = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="checkout booking-date"]')))
             endDate.click()
-            print('The end date field was clicked.')
+            print('\t' + 'The end date field was clicked.')
         except Exception as err:
             print(str(err))
 
@@ -151,7 +151,7 @@ class RocketMiles:
         try:
             startDate = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="checkin booking-date"]')))
             startDate.click()
-            print('The start date field was clicked.')
+            print('\t' + 'The start date field was clicked.')
         except Exception as err:
             print(str(err))
 
@@ -160,7 +160,7 @@ class RocketMiles:
         try:
             november21 = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "21")]')))
             november21.click()
-            print('November 21 was clicked.')
+            print('\t' + 'November 21 was clicked.')
         except Exception as err:
             print(str(err))
 
@@ -169,7 +169,7 @@ class RocketMiles:
         try:
             november25 = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "25")]')))
             november25.click()
-            print('November 25 was clicked.')
+            print('\t' + 'November 25 was clicked.')
         except Exception as err:
             print(str(err))
 
@@ -179,7 +179,7 @@ class RocketMiles:
             #guest = self.driver.find_element_by_css_selector('div[class="adults col-sm-3 search-field"]')
             guest =  wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="adults col-sm-3 search-field"]')))
             guest.click()
-            print('The guest field has been clicked.')
+            print('\t' + 'The guest field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -188,7 +188,7 @@ class RocketMiles:
         try:
             guest1 = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "1 Guest")]')))
             guest1.click()
-            print('1 Guest was clicked from the guest dropdown menu.')
+            print('\t' + '1 Guest was clicked from the guest dropdown menu.')
         except Exception as err:
             print(str(err))
 
@@ -197,7 +197,7 @@ class RocketMiles:
         try:
             rooms = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[class="rooms col-sm-3 search-field ng-scope"]')))
             rooms.click()
-            print('The rooms field has been clicked.')
+            print('\t' + 'The rooms field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -206,7 +206,7 @@ class RocketMiles:
         try:
             room1 = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "1 Room")]')))
             room1.click()
-            print('1 Room was clicked from the rooms dropdown menu.')
+            print('\t' + '1 Room was clicked from the rooms dropdown menu.')
         except Exception as err:
             print(str(err))
 
@@ -215,7 +215,7 @@ class RocketMiles:
         try:
             searchButton = self.driver.find_element_by_css_selector('*[class="rm-btn-orange search-submit-btn"]')
             searchButton.click()
-            print('Search Properties button has been clicked.')
+            print('\t' + 'Search Properties button has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -224,7 +224,7 @@ class RocketMiles:
         try:
             sortBy = wait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="sort-dropdown dropdown-toggle"]')))
             sortBy.click()
-            print('Sort By field has been clicked.')
+            print('\t' + 'Sort By field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -233,7 +233,7 @@ class RocketMiles:
         try:
             miles = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "Miles")]')))
             miles.click()
-            print('The miles option was clicked from the sort by dropdown menu.')
+            print('\t' + 'The miles option was clicked from the sort by dropdown menu.')
             time.sleep(2)
         except Exception as err:
             print(str(err))
@@ -244,7 +244,7 @@ class RocketMiles:
             #selectHotel = self.driver.find_element_by_xpath('//div[@class="rm-btn-orange ng-scope"]')
             selectHotel = wait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//div[@class="rm-btn-orange ng-scope"]')))
             selectHotel.click()
-            print('1st hotel listing has been clicked.')
+            print('\t' + '1st hotel listing has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -252,7 +252,7 @@ class RocketMiles:
     def switch_tabs(self):
         try:
             self.driver.switch_to.window(self.driver.window_handles[1])
-            print('Tab has been switched.')
+            print('\t' + 'Tab has been switched.')
         except Exception as err:
             print(str(err))
 
@@ -261,7 +261,7 @@ class RocketMiles:
         try:
             continueButton = wait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="continue-btn btn ng-scope"]')))
             continueButton.click()
-            print('The continue button on the new reward offer banner has been clicked.')
+            print('\t' + 'The continue button on the new reward offer banner has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -271,7 +271,7 @@ class RocketMiles:
             time.sleep(3)
             selectButton = self.driver.find_element_by_css_selector('span[class="rm-animate-fade ng-scope"]')
             selectButton.click()
-            print('Select a Room button has been clicked.')
+            print('\t' + 'Select a Room button has been clicked.')
         except Exception as err:
             print(err)
 
@@ -280,7 +280,7 @@ class RocketMiles:
         try:
             viewButton = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, 'options-button-container')))
             viewButton.click()
-            print('The view button has been clicked.')
+            print('\t' + 'The view button has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -289,7 +289,7 @@ class RocketMiles:
         try:
             select = wait(self.driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, 'book-container')))
             select.click()
-            print('The select button has been clicked.')
+            print('\t' + 'The select button has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -298,7 +298,7 @@ class RocketMiles:
         try:
             guestFirstName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'guestFirstName')))
             guestFirstName.click()
-            print('The guest first name field has been clicked.')
+            print('\t' + 'The guest first name field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -306,7 +306,7 @@ class RocketMiles:
     def type_first_name(self):
         try:
             firstName = action(self.driver).send_keys('John').perform()
-            print('The test data was typed into the first name field.')
+            print('\t' + 'The test data was typed into the first name field.')
         except Exception as err:
             print(str(err))
 
@@ -315,7 +315,7 @@ class RocketMiles:
         try:
             guestLastName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'guestLastName')))
             guestLastName.click()
-            print('The guest last name field has been clicked.')
+            print('\t' + 'The guest last name field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -323,7 +323,7 @@ class RocketMiles:
     def type_last_name(self):
         try:
             lastName = action(self.driver).send_keys('Smith').perform()
-            print('The test data was typed into the last name field.')
+            print('\t' + 'The test data was typed into the last name field.')
         except Exception as err:
             print(str(err))
 
@@ -332,7 +332,7 @@ class RocketMiles:
         try:
             firstName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'firstname')))
             firstName.click()
-            print('Your first name field has been clicked.')
+            print('\t' + 'Your first name field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -341,7 +341,7 @@ class RocketMiles:
         try:
             lastName = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'lastname')))
             lastName.click()
-            print('Your last name field has been clicked.')
+            print('\t' + 'Your last name field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -350,7 +350,7 @@ class RocketMiles:
         try:
             emailField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newUsername')))
             emailField.click()
-            print('The email address field has been clicked.')
+            print('\t' + 'The email address field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -358,7 +358,7 @@ class RocketMiles:
     def type_email_address(self):
         try:
             emailAddress = action(self.driver).send_keys('test@test.com').perform()
-            print('The test data was typed into the Email Address field.')
+            print('\t' + 'The test data was typed into the Email Address field.')
         except Exception as err:
             print(str(err))
 
@@ -367,7 +367,7 @@ class RocketMiles:
         try:
             passwordField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newPassword')))
             passwordField.click()
-            print('The new password field has been clicked.')
+            print('\t' + 'The new password field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -375,7 +375,7 @@ class RocketMiles:
     def type_password(self):
         try:
             action(self.driver).send_keys('12345abc!#^').perform()
-            print('The test data was typed into the new password field.')
+            print('\t' + 'The test data was typed into the new password field.')
         except Exception as err:
             print(str(err))
 
@@ -384,7 +384,7 @@ class RocketMiles:
         try:
             confirmPassword = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'confirmPassword')))
             confirmPassword.click()
-            print('The confirm password field has been clicked.')
+            print('\t' + 'The confirm password field has been clicked.')
         except Exception as err:
             print(str(err))
 
@@ -401,7 +401,7 @@ class RocketMiles:
     def type_reward_account(self):
         try:
             accountNumber = action(self.driver).send_keys('123456789a').perform()
-            print('The test data was typed into the rewards program account number field.')
+            print('\t' + 'The test data was typed into the rewards program account number field.')
         except Exception as err:
             print(str(err))
 
@@ -410,7 +410,7 @@ class RocketMiles:
         try:
             rewardFirst = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newRewardAccountFirstName')))
             rewardFirst.click()
-            print('The rewards program First Name field has been clicked.')
+            print('\t' + 'The rewards program First Name field has been clicked.')
         except  Exception as err:
             print(str(err))
 
@@ -419,7 +419,7 @@ class RocketMiles:
         try:
             rewardLast = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'newRewardAccountLastName')))
             rewardLast.click()
-            print('The rewards program Last Name field has been clicked.')
+            print('\t' + 'The rewards program Last Name field has been clicked.')
         except  Exception as err:
             print(str(err))
 
@@ -429,14 +429,14 @@ class RocketMiles:
         try:
             iframe = self.driver.find_element_by_id('eProtect-iframe')
             self.driver.switch_to.frame(iframe)
-            print('iFrame switched.')
+            print('\t' + 'iFrame switched.')
 
             #Selecting the credit card number field and entering test data "0123456789876543210" for TCID 24.
             try:
                 #time.sleep(1)
                 ccField = wait(self.driver, 5).until(EC.element_to_be_clickable((By.ID, 'accountNumber')))
                 action(self.driver).click(ccField).send_keys('0123456789876543210').perform()
-                print('The credit card number field has been clicked.')
+                print('\t' + 'The credit card number field has been clicked.')
             except Exception as err:
                 print(str(err))
 
@@ -444,7 +444,7 @@ class RocketMiles:
             try:
                 expMonthField = self.driver.find_element_by_id('expMonth')
                 expMonthField.click()
-                print('The credit card expiration month dropdown menu has been selected.')
+                print('\t' + 'The credit card expiration month dropdown menu has been selected.')
             except Exception as err:
                 print(str(err))
 
@@ -452,7 +452,7 @@ class RocketMiles:
             try:
                 expirationMonth = self.driver.find_element_by_xpath('//option[@value="07"]')
                 expirationMonth.click()
-                print('The credit card expiration month test data has been set from the dropdown menu options.')
+                print('\t' + 'The credit card expiration month test data has been set from the dropdown menu options.')
             except Exception as err:
                 print(str(err))
 
@@ -460,7 +460,7 @@ class RocketMiles:
             try:
                 expYearField = self.driver.find_element_by_id('expYear')
                 expYearField.click()
-                print('The credit card expiration year dropdown menu has been selected.')
+                print('\t' + 'The credit card expiration year dropdown menu has been selected.')
             except Exception as err:
                 print(str(err))
 
@@ -468,7 +468,7 @@ class RocketMiles:
             try:
                 expirationYear = self.driver.find_element_by_xpath('//option[@value="21"]')
                 expirationYear.click()
-                print('The credit card expiration year test data has been set from the dropdown menu options.')
+                print('\t' + 'The credit card expiration year test data has been set from the dropdown menu options.')
             except Exception as err:
                 print(str(err))
 
@@ -477,7 +477,7 @@ class RocketMiles:
                 time.sleep(2)
                 securityCodeField = self.driver.find_element_by_id('cvv')
                 securityCodeField.click()
-                print('The credit card security code field has been selected.')
+                print('\t' + 'The credit card security code field has been selected.')
             except Exception as err:\
                 print(str(err))
 
@@ -485,7 +485,7 @@ class RocketMiles:
             try:
                 time.sleep(2)
                 action(self.driver).send_keys('012').perform()
-                print('The credit card security code test data has been typed into the security code field.')
+                print('\t' + 'The credit card security code test data has been typed into the security code field.')
             except Exception as err:
                 print(str(err))
         except Exception as err:
@@ -495,7 +495,7 @@ class RocketMiles:
     def switch_to_default_frame(self):
         try:
             self.driver.switch_to.default_content()
-            print('Switched back to default frame.')
+            print('\t' + 'Switched back to default frame.')
         except Exception as err:
             print(str(err))
 
@@ -504,7 +504,7 @@ class RocketMiles:
         try:
             zipCodeField = self.driver.find_element_by_name('zipcode')
             zipCodeField.click()
-            print('The billing zip code field has been selected.')
+            print('\t' + 'The billing zip code field has been selected.')
         except Exception as err:
             print(str(err))
 
@@ -513,7 +513,7 @@ class RocketMiles:
         try:
             time.sleep(2)
             action(self.driver).send_keys('60640').perform()
-            print('The billing zip code test data has been typed into the field.')
+            print('\t' + 'The billing zip code test data has been typed into the field.')
         except Exception as err:
             print(str(err))
 
@@ -524,6 +524,6 @@ class RocketMiles:
             termsCheckbox = self.driver.find_element_by_xpath('//input[@id="agreeToTermsAndPolicies"]')
             action(self.driver).move_to_element(termsCheckbox).click().perform()
             #termsCheckbox.click()
-            print('The Terms and Conditions checkbox has been clicked.')
+            print('\t' + 'The Terms and Conditions checkbox has been clicked.')
         except Exception as err:
             print(str(err))
