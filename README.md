@@ -25,7 +25,9 @@ For installation help, visit this troubleshooting guide: https://realpython.com/
 ***<b>Installing pip</b>
 
 Pip should already be installed when you installed Python. If, for some reason, it is not, here are resources for installing pip:
+
 Windows: https://pip.pypa.io/en/latest/installing/
+
 Linux: https://www.tecmint.com/install-pip-in-linux/
 
 <b>***Installing Selenium Bindings</b>
