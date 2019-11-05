@@ -5,9 +5,13 @@ This test suite was developed in a Linux environment, running Chrome 78.0.3904.7
 <b>System Requirements</b>
 
 Python 3.6.8 or higher installed
+
 Selenium Python bindings installed
+
 Selenium Webdriver for Chrome downloaded and saved to a directory/folder of your choice
+
 IDE of your choice installed
+
 Chrome 78 or higher
 
 <b>Installation Instructions</b>
