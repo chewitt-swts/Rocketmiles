@@ -96,7 +96,7 @@ Before running anything, you’ll need to open the RocketMilesClass.py file and 
         
         self.chrome_options.add_argument('--disable-popup-blocking')
         
-        self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options
+        self.driver = webdriver.Chrome(r'/home/hugo/Drivers/chromedriver', options=self.chrome_options
       
 
 You’ll want to find the line: 
