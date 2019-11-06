@@ -60,29 +60,29 @@ This file also contains all the Webdriver settings. You will need to update this
 
 <i>SmokeTestAllModules.py</i>
 
-This file contains a test script to automate a smoke test all the way through the search, selection, and checkout process.
+This file contains a test script to automate a smoke test all the way through the search, selection, and checkout process. Includes all preconditions necessary to complete each test. Also includes a load time/performance calculator and basic logging, both to the console and written to a .log file.
 
 <i>SmokeTestMainPageModule.py</i>
 
-This file contains a test script to automate a smoke test for the main search page only.
+This file contains a test script to automate a smoke test for the main search page only. Includes all preconditions necessary to complete each test. Also includes a load time/performance calculator and basic logging, both to the console and written to a .log file.
 
 <i>SmokeTestSearchResultsModule.py</i>
 
-This file contains a test script to automate a smoke test for the search results page only.
+This file contains a test script to automate a smoke test for the search results page only. Includes all preconditions necessary to complete each test. Also includes a load time/performance calculator and basic logging, both to the console and written to a .log file.
 
 <i>SmokeTestHotelDetailsModule.py</i>
 
-This file contains a test script to automate a smoke test for the hotel details page only.
+This file contains a test script to automate a smoke test for the hotel details page only. Includes all preconditions necessary to complete each test. Also includes a load time/performance calculator and basic logging, both to the console and written to a .log file.
 
 <i>SmokeTestCheckoutModule.py</i>
 
-This file contains a test script to automate a smoke test for the checkout page only.
+This file contains a test script to automate a smoke test for the checkout page only. Includes all preconditions necessary to complete each test. Also includes a load time/performance calculator and basic logging, both to the console and written to a .log file.
 
 <b>***Executing the Test Cases</b>
 
 With all system requirements satisfied, it’s time to pull the test scripts from Github and open them in your IDE. Be sure they are all saved to the same directory.
 
-Before running anything, you’ll need to open the RocketMilesClas.py file and change the Webdriver filepath to your local filepath, which you saved above. To do so, find: 
+Before running anything, you’ll need to open the RocketMilesClass.py file and change the Webdriver filepath to your local filepath, which you saved above. To do so, find: 
 
   `  def __init__(self):
   
@@ -106,13 +106,13 @@ Keep everything the same except for the '/home/hugo/Drivers/chromedriver' string
 
 Then, open any of the test script files in your IDE and use your IDE’s settings to run them. In Pycharm, you can right click anywhere in the file and select to run it, or use hotkey CTRL + SHIFT + F10. Other IDES may have different hotkeys or ways to run a file. 
 
-Once you select to run the file, the test script should open a web browser and perform the actions of each test case. Exceptions and failures are written to a log.
+Once you select to run the file, the test script should open a web browser and perform the actions of each test case. Exceptions, failures, and successful executions are written to a log.
 
 Common failures are TimeOutExceptions and ClickIntercepts. Both can commonly be fixed by adding the time.sleep(5) command to the line before the failure. If that doesn’t solve the problem, more in-depth troubleshooting is required.
 
 <b>***Logs</b>
 
-Each test script is designed to write log files to the same directory that the test scripts are stored in. The script will create a folder titled “logs,” if one does not already exist,then proceed in creating the log file.
+Each test script is designed to write log files to the same directory that the test scripts are stored in. The script will create a folder titled “logs,” if one does not already exist,then proceed in creating the log file. Each log will contain a log of any Exceptions encountered at runtime. It will also contain a complete readout of the start and completion of each test case, as well as the load time of each test case. 
 
 The log files are named with an acronym of the test module and timestamp. The acronyms are:
 
@@ -129,5 +129,4 @@ The timestamp format is as follows:
 The full filename should read (as an example):
 
 `STC_log_2019_11_05__1504_50.log`
-
 
