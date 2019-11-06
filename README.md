@@ -112,7 +112,7 @@ Common failures are TimeOutExceptions and ClickIntercepts. Both can commonly be 
 
 <b>***Logs</b>
 
-Each test script is designed to write log files to the same directory that the test scripts are stored in. The script will create a folder titled “logs,” if one does not already exist, and create a subfolder for each test module. If these folders already exist, the script will proceed in creating the log file.
+Each test script is designed to write log files to the same directory that the test scripts are stored in. The script will create a folder titled “logs,” if one does not already exist,then proceed in creating the log file.
 
 The log files are named with an acronym of the test module and timestamp. The acronyms are:
 
