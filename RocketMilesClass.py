@@ -19,7 +19,7 @@ class RocketMiles:
         self.chrome_options.add_argument('--disable-popup-blocking')
 
          #Below is our driver object that we are storing our Webdriver in. Replace the filepath with the location of your local Webdriver.
-        self.driver = webdriver.Chrome(r'/home/hugo/Drivers/chromedriver', options=self.chrome_options)
+        self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)
 
         #Optional setting to decrease TimeOutException errors. Can be removed for faster execution, but you are more likely to encounter errors based on your internet connection.
         self.driver.implicitly_wait(3)
@@ -88,9 +88,8 @@ class RocketMiles:
 
 #Creating a helper method to handle the sign up popup that occasionally appears on the Main Page when the page first loads. We need to close the popup in order to proceed with the test cases.
     def close_popUp(self):
-        #time.sleep(5)
         try:
-            closeButton = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="close"]')))
+            closeButton = wait(self.driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="close"]')))
             closeButton.click()
             print('\t' + 'Precondition: The close button for the sign up popup has been clicked.')
             time.sleep(3)
