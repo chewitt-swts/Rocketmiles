@@ -118,9 +118,13 @@ Each test script is designed to write log files to the same directory that the t
 The log files are named with an acronym of the test module and timestamp. The acronyms are:
 
 STAM (Smoke Test All Modules)
+
 STMP (Smoke Test Main Page)
+
 STSR (Smoke Test Search Results)
+
 STHD (Smoke Test Hotel Details)
+
 STC (Smoke Test Checkout)
 
 The timestamp format is as follows:
