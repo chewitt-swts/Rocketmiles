@@ -6,21 +6,44 @@ from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
-
+import logging.handlers
 
 class RocketMiles:
 
-#Creating up our Selenium Webdriver and Chrome settings for use in all test cases.
+#Creating our Selenium Webdriver and Chrome settings for use in all test cases.
     def __init__(self):
         self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_argument('-incognito')
         self.chrome_options.add_argument("--start-maximized")
         self.chrome_options.add_argument('--disable-notifications')
         self.chrome_options.add_argument('--disable-popup-blocking')
-    #Below is our driver object that we are storing our Webdriver in. Replace the filepath with the location of your local Webdriver.
+
+         #Below is our driver object that we are storing our Webdriver in. Replace the filepath with the location of your local Webdriver.
         self.driver = webdriver.Chrome(r'/home/hugo/Drivers/chromedriver', options=self.chrome_options)
 
+        #Optional setting to decrease TimeOutException errors. Can be removed for faster execution, but you are more likely to encounter errors based on your internet connection.
         self.driver.implicitly_wait(3)
+
+#Creating method to collect the load time of each test. Useful for performance testing. All time values are in milliseconds.
+    def loadtime(self):
+        navigationStart = self.driver.execute_script("return window.performance.timing.navigationStart")
+        responseStart = self.driver.execute_script("return window.performance.timing.responseStart")
+        domComplete = self.driver.execute_script("return window.performance.timing.domComplete")
+
+        # Calculating website/network performance
+        backendPerformance_calc = responseStart - navigationStart
+        frontendPerformance_calc = domComplete - responseStart
+
+        #Displaying loadtimes in console
+        print("Back End: %s" % backendPerformance_calc)
+        print("Front End: %s" % frontendPerformance_calc)
+
+        #Writing loadtimes to log
+        backEnd = "Back End: %s" % backendPerformance_calc
+        frontEnd = "Front End: %s" % frontendPerformance_calc
+        logging.info(backEnd)
+        logging.info(frontEnd)
+        return
 
 #Creating a method to open the Rocketmiles website.
     def open_rocketMiles(self):
@@ -523,7 +546,6 @@ class RocketMiles:
             time.sleep(5)
             termsCheckbox = self.driver.find_element_by_xpath('//input[@id="agreeToTermsAndPolicies"]')
             action(self.driver).move_to_element(termsCheckbox).click().perform()
-            #termsCheckbox.click()
             print('\t' + 'The Terms and Conditions checkbox has been clicked.')
         except Exception as err:
             print(str(err))

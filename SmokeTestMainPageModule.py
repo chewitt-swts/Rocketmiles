@@ -41,9 +41,11 @@ print("Current testing log file is: ", logName)
 #Preconditions for proceeding with smoke test.
 try:
     logging.info('Starting smoke test preconditions.')
+    print('Starting smoke test preconditions.')
     RM.open_rocketMiles()
     RM.close_popUp()
     RM.close_cookie_banner()
+    RM.loadtime()
 except Exception as err:
     print(str(err))
     logging.exception(str(err))
@@ -51,12 +53,12 @@ except Exception as err:
 
 #Smoke Test for all modules (TCIDs 1-8).
 try:
-
     #TCID 1: Main Page - Can a user enter a destination?
     print('Beginning TCID 1: Main Page - Can a user enter a destination?')
     logging.info('Beginning TCID 1: Main Page - Can a user enter a destination?')
     RM.select_destination_field()
     RM.type_destination()
+    RM.loadtime()
     print('TCID 1 has been executed.')
     logging.info('TCID 1 has been executed.')
 
@@ -65,6 +67,7 @@ try:
     logging.info('Beginning TCID 2: Main Page - Can a user enter a rewards program?')
     RM.select_rewards()
     RM.type_rewards()
+    RM.loadtime()
     print('TCID 2 has been executed.')
     logging.info('TCID 2 has been executed.')
 
@@ -72,6 +75,7 @@ try:
     print('Beginning TCID 3: Main Page - Can a user select the end date field?')
     logging.info('Beginning TCID 3: Main Page - Can a user select the end date field?')
     RM.click_end_date()
+    RM.loadtime()
     print('TCID 3 has been executed.')
     logging.info('TCID 3 has been executed.')
 
@@ -80,6 +84,7 @@ try:
     logging.info('Beginning TCID 4: Main Page - Can a user select a start date?')
     RM.click_start_date()
     RM.click_November_21()
+    RM.loadtime()
     print('TCID 4 has been executed.')
     logging.info('TCID 4 has been executed.')
 
@@ -87,6 +92,7 @@ try:
     print('Beginning TCID 5: Main Page - Can a user select an end date from the end date calendar?')
     logging.info('Beginning TCID 5: Main Page - Can a user select an end date from the end date calendar?')
     RM.click_November_25()
+    RM.loadtime()
     print('TCID 5 has been executed.')
     logging.info('TCID 5 has been executed.')
 
@@ -95,6 +101,7 @@ try:
     logging.info('Beginning TCID 6: Main Page - Can a user select the number of guests?')
     RM.select_guest_field()
     RM.click_1_guest()
+    RM.loadtime()
     print('TCID 6 has been executed.')
     logging.info('TCID 6 has been executed.')
 
@@ -103,6 +110,7 @@ try:
     logging.info('Beginning TCID 7: Main Page - Can a user select the number of rooms?')
     RM.select_rooms_field()
     RM.click_1_room()
+    RM.loadtime()
     print('TCID 7 has been executed.')
     logging.info('TCID 7 has been executed.')
 
@@ -110,6 +118,7 @@ try:
     print('Beginning TCID 8: Main Page - Can a user select the Search button?')
     logging.info('Beginning TCID 8: Main Page - Can a user select the Search button?')
     RM.click_search_properties_button()
+    RM.loadtime()
     print('TCID 8 has been executed.')
     logging.info('TCID 8 has been executed.')
 

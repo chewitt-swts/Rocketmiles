@@ -4,9 +4,9 @@ import logging.handlers
 import datetime
 import os
 
-#Smoke test for basic functionality of the Checkout page for the Rocketmiles.com search app.
+#Smoke test for basic functionality of the Rocketmiles.com search app. This smoke test navigates through the entire search, selection, and checkout process.
 
-#This module contains an error logger, test preconditions, and TCIDs 14-28.
+#This module contains an error logger, test preconditions, and TCIDs 1-29.
 
 
 #Initializing class object.
@@ -14,13 +14,13 @@ RM = RocketMiles()
 
 
 #Error Logger
-    #Creating log filepath. Syntax is an acronym for the module (in this case, Smoke Test Checkout), followed by a Year_Month_Day__Hour_Minute_Second timestamp.
+    #Creates a date- and time-stamped filepath for the logfile. The filename syntax is an acronym for the module (in this case, Smoke Test All Modules), followed by a Year_Month_Day__Hour_Minute_Second timestamp.
 logSuffix = datetime.datetime.now()
-logName = "logs/CheckoutModule/STC_log_" + logSuffix.strftime("%Y_%m_%d__%H%M_%S") + ".log"
+logName = "logs/SmokeTestAllModules/STAM_log_" + logSuffix.strftime("%Y_%m_%d__%H%M_%S") + ".log"
 
     #Create a new log folder if none exists, then the log file.
 try:
-    os.mkdir("logs/CheckoutModule")
+    os.mkdir("logs/SmokeTestAllModules/")
 except:
     print()
 
@@ -38,29 +38,135 @@ root.addHandler(logsHandler)
 print("Current testing log file is: ", logName)
 
 
-#Preconditions
-logging.info('Starting smoke test preconditions.')
-RM.open_checkout_page()
+#Preconditions for proceeding with smoke test.
 try:
-    RM.new_reward_banner()
+    logging.info('Starting smoke test preconditions.')
+    RM.open_rocketMiles()
+    RM.close_popUp()
     RM.close_cookie_banner()
-except Exception as err:
-    print(str(err))
-try:
-    RM.checkout_return_search()
-    RM.select_hotel()
-    RM.switch_tabs()
-    RM.click_select_room_button()
-    RM.select_view_button()
-    RM.select_button()
-    RM.close_cookie_banner()
+    RM.loadtime()
+    logging.info('Preconditions have been satisfied. Proceeding with test.')
 except Exception as err:
     print(str(err))
     logging.exception(str(err))
 
 
-#Smoke Test for Checkout (TCIDs 14-29).
+#Smoke Test for all modules (TCIDs 1-29).
 try:
+    #TCID 1: Main Page - Can a user enter a destination?
+    print('Beginning TCID 1: Main Page - Can a user enter a destination?')
+    logging.info('Beginning TCID 1: Main Page - Can a user enter a destination?')
+    RM.select_destination_field()
+    RM.type_destination()
+    RM.loadtime()
+    print('TCID 1 has been executed.')
+    logging.info('TCID 1 has been executed.')
+
+    #TCID 2: Main Page - Can a user enter a rewards program?
+    print('Beginning TCID 2: Main Page - Can a user enter a rewards program?')
+    logging.info('Beginning TCID 2: Main Page - Can a user enter a rewards program?')
+    RM.select_rewards()
+    RM.type_rewards()
+    RM.loadtime()
+    print('TCID 2 has been executed.')
+    logging.info('TCID 2 has been executed.')
+
+    #TCID 3: Main Page - Can a user select the end date field?
+    print('Beginning TCID 3: Main Page - Can a user select the end date field?')
+    logging.info('Beginning TCID 3: Main Page - Can a user select the end date field?')
+    RM.click_end_date()
+    RM.loadtime()
+    print('TCID 3 has been executed.')
+    logging.info('TCID 3 has been executed.')
+
+    #TCID 4: Main Page - Can a user select a start date?
+    print('Beginning TCID 4: Main Page - Can a user select a start date?')
+    logging.info('Beginning TCID 4: Main Page - Can a user select a start date?')
+    RM.click_start_date()
+    RM.click_November_21()
+    RM.loadtime()
+    print('TCID 4 has been executed.')
+    logging.info('TCID 4 has been executed.')
+
+    #TCID 5: Main Page - Can a user select an end date from the end date calendar?
+    print('Beginning TCID 5: Main Page - Can a user select an end date from the end date calendar?')
+    logging.info('Beginning TCID 5: Main Page - Can a user select an end date from the end date calendar?')
+    RM.click_November_25()
+    RM.loadtime()
+    print('TCID 5 has been executed.')
+    logging.info('TCID 5 has been executed.')
+
+    #TCID 6: Main Page - Can a user select the number of guests?
+    print('Beginning TCID 6: Main Page - Can a user select the number of guests?')
+    logging.info('Beginning TCID 6: Main Page - Can a user select the number of guests?')
+    RM.select_guest_field()
+    RM.click_1_guest()
+    RM.loadtime()
+    print('TCID 6 has been executed.')
+    logging.info('TCID 6 has been executed.')
+
+    #TCID 7: Main Page - Can a user select the number of rooms?
+    print('Beginning TCID 7: Main Page - Can a user select the number of rooms?')
+    logging.info('Beginning TCID 7: Main Page - Can a user select the number of rooms?')
+    RM.select_rooms_field()
+    RM.click_1_room()
+    RM.loadtime()
+    print('TCID 7 has been executed.')
+    logging.info('TCID 7 has been executed.')
+
+    #TCID 8: Main Page - Can a user select the Search button?
+    print('Beginning TCID 8: Main Page - Can a user select the Search button?')
+    logging.info('Beginning TCID 8: Main Page - Can a user select the Search button?')
+    RM.click_search_properties_button()
+    RM.loadtime()
+    print('TCID 8 has been executed.')
+    logging.info('TCID 8 has been executed.')
+
+    #TCID 9: Search Page - Can a user sort results by Miles using the Sort By dialogue box?
+    print('Beginning TCID 9: Search Page - Can a user sort results by Miles using the Sort By dialogue box?')
+    logging.info('Beginning TCID 9: Search Page - Can a user sort results by Miles using the Sort By dialogue box?')
+    RM.select_sort_by_field()
+    RM.click_miles()
+    RM.loadtime()
+    print('TCID 9 has been executed.')
+    logging.info('TCID 9 has been executed.')
+
+    #TCID 10: Search Page - Can a user select the "Select Now" button for the first listing?
+    print('Beginning TCID 10: Search Page - Can a user select the "Select Now" button for the first listing?')
+    logging.info('Beginning TCID 10: Search Page - Can a user select the "Select Now" button for the first listing?')
+    RM.select_hotel()
+    RM.loadtime()
+    print('TCID 10 has been executed.')
+    logging.info('TCID 10 has been executed.')
+
+    #Precondition for proceeding with smoke test
+    RM.switch_tabs()
+    print('Precondition: switched to new tab to proceed.')
+    logging.info('Precondition: switched to new tab to proceed.')
+
+    # TCID 11: Hotel Details - Can a user select the Select A Room button?
+    print('Beginning TCID 11: Hotel Details - Can a user select the Select A Room button?')
+    logging.info('Beginning TCID 11: Hotel Details - Can a user select the Select A Room button?')
+    RM.click_select_room_button()
+    RM.loadtime()
+    print('TCID 11 has been executed.')
+    logging.info('TCID 11 has been executed.')
+
+    # TCID 12: Hotel Details - Can a user select the View button?
+    print('Beginning TCID 12: Hotel Details - Can a user select the View button?')
+    logging.info('Beginning TCID 12: Hotel Details - Can a user select the View button?')
+    RM.select_view_button()
+    RM.loadtime()
+    print('TCID 12 has been executed.')
+    logging.info('TCID 12 has been executed.')
+
+    # TCID 13: Hotel Details - Can a user select the green Select button to choose a room?
+    print('Beginning TCID 13: Hotel Details - Can a user select the green Select button to choose a room?')
+    logging.info('Beginning TCID 13: Hotel Details - Can a user select the green Select button to choose a room?')
+    RM.select_button()
+    RM.loadtime()
+    print('TCID 13 has been executed.')
+    logging.info('TCID 13 has been executed.')
 
     # TCID 14: Checkout - Can a user enter a Guest First Name?
     print('Beginning TCID 14: Checkout - Can a user enter a Guest First Name?')
@@ -187,7 +293,7 @@ try:
 except Exception as err:
     logging.exception(str(err))
 
-#Ending smoke test for Checkout module
-print('Checkout module smoke test complete. Closing browser.')
+#Ending smoke test for all modules
+print('All modules smoke test complete. Closing browser.')
 RM.close_browser()
-logging.info('Checkout module smoke test complete. Browser closed.')
+logging.info('All modules smoke test complete. Browser closed.')

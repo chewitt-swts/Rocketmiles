@@ -40,8 +40,11 @@ print("Current testing log file is: ", logName)
 
 #Preconditions for proceeding with smoke test.
 try:
+    logging.info('Starting smoke test preconditions.')
+    print('Starting smoke test preconditions.')
     RM.open_search_page()
     RM.close_cookie_banner()
+    RM.loadtime()
 except Exception as err:
     print(str(err))
     logging.exception(str(err))
@@ -54,6 +57,7 @@ try:
     logging.info('Beginning TCID 9: Search Page - Can a user sort results by Miles using the Sort By dialogue box?')
     RM.select_sort_by_field()
     RM.click_miles()
+    RM.loadtime()
     print('TCID 9 has been executed.')
     logging.info('TCID 9 has been executed.')
 
@@ -61,6 +65,7 @@ try:
     print('Beginning TCID 10: Search Page - Can a user select the "Select Now" button for the first listing?')
     logging.info('Beginning TCID 10: Search Page - Can a user select the "Select Now" button for the first listing?')
     RM.select_hotel()
+    RM.loadtime()
     print('TCID 10 has been executed.')
     logging.info('TCID 10 has been executed.')
 

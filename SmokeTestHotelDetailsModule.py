@@ -41,9 +41,11 @@ print("Current testing log file is: ", logName)
 #Precondition for proceeding with smoke test
 try:
     logging.info('Starting smoke test preconditions.')
+    print('Starting smoke test preconditions.')
     RM.open_hotel_details()
     RM.new_reward_banner()
     RM.close_cookie_banner()
+    RM.loadtime()
 except Exception as err:
     print(str(err))
     logging.exception(str(err))
@@ -52,24 +54,27 @@ except Exception as err:
 #Smoke Test for Hotel Details (TCIDs 11-13).
 try:
 
-    #TCID 11: Hotel Details - Can a user select the Select A Room button?
+    # TCID 11: Hotel Details - Can a user select the Select A Room button?
     print('Beginning TCID 11: Hotel Details - Can a user select the Select A Room button?')
     logging.info('Beginning TCID 11: Hotel Details - Can a user select the Select A Room button?')
     RM.click_select_room_button()
+    RM.loadtime()
     print('TCID 11 has been executed.')
     logging.info('TCID 11 has been executed.')
 
-    #TCID 12: Hotel Details - Can a user select the View button?
+    # TCID 12: Hotel Details - Can a user select the View button?
     print('Beginning TCID 12: Hotel Details - Can a user select the View button?')
     logging.info('Beginning TCID 12: Hotel Details - Can a user select the View button?')
     RM.select_view_button()
+    RM.loadtime()
     print('TCID 12 has been executed.')
     logging.info('TCID 12 has been executed.')
 
-    #TCID 13: Hotel Details - Can a user select the green Select button to choose a room?
+    # TCID 13: Hotel Details - Can a user select the green Select button to choose a room?
     print('Beginning TCID 13: Hotel Details - Can a user select the green Select button to choose a room?')
     logging.info('Beginning TCID 13: Hotel Details - Can a user select the green Select button to choose a room?')
     RM.select_button()
+    RM.loadtime()
     print('TCID 13 has been executed.')
     logging.info('TCID 13 has been executed.')
 
