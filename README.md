@@ -33,10 +33,12 @@ Linux: https://www.tecmint.com/install-pip-in-linux/
 <b>***Installing Selenium Bindings</b>
 
 With pip installed, open your computer’s command line. Use the following command:
-Pip install selenium
+
+`Pip install selenium`
 
 If you are on a Linux machine, you may need to use 
-Sudo pip install selenium
+
+`Sudo pip install selenium`
 
 Before proceeding, you will be prompted to log in with your administrator credentials.
 
@@ -44,33 +46,35 @@ Before proceeding, you will be prompted to log in with your administrator creden
 
 Once you’ve installed Selenium’s Python bindings, it’s time to download the Webdriver. Start by going here: https://selenium-python.readthedocs.io/installation.html#drivers
 
-On that webpage, locate the link for Chrome’s drivers. Download the driver from the link. It will come as a zip file. Extract it to the directory/filepath of your choosing. For best results, store it in a simple path, such as /home/USERNAME/Drivers or C:\\Drivers. Save the filepath for reference.
+On that webpage, locate the link for Chrome’s drivers. Download the driver from the link. It will come as a zip file. Extract it to the directory/filepath of your choosing. For best results, store it in a simple path, such as `/home/USERNAME/Drivers` or `C:\\USER\Drivers`. Save the filepath for reference.
 
 <b>Running the Test Suite</b>
 
 <b>***Test Script Manifest</b>
 
-RocketMilesClass.py
+<i>RocketMilesClass.py</i>
+
 This file contains methods to interact with each element on the website, as well as helper methods to navigate through any test preconditions. 
+
 This file also contains all the Webdriver settings. You will need to update this file with your Webdriver’s local filepath. See the “Running the test cases” section.
 
-SmokeTestAllModules.py
+<i>SmokeTestAllModules.py</i>
 
 This file contains a test script to automate a smoke test all the way through the search, selection, and checkout process.
 
-SmokeTestMainPageModule.py
+<i>SmokeTestMainPageModule.py</i>
 
 This file contains a test script to automate a smoke test for the main search page only.
 
-SmokeTestSearchResultsModule.py
+<i>SmokeTestSearchResultsModule.py</i>
 
 This file contains a test script to automate a smoke test for the search results page only.
 
-SmokeTestHotelDetailsModule.py
+<i>SmokeTestHotelDetailsModule.py</i>
 
 This file contains a test script to automate a smoke test for the hotel details page only.
 
-SmokeTestCheckoutModule.py
+<i>SmokeTestCheckoutModule.py</i>
 
 This file contains a test script to automate a smoke test for the checkout page only.
 
@@ -80,19 +84,23 @@ With all system requirements satisfied, it’s time to pull the test scripts fro
 
 Before running anything, you’ll need to open the RocketMilesClas.py file and change the Webdriver filepath to your local filepath, which you saved above. To do so, find: 
 
-    def __init__(self):
+  `  def __init__(self):
+  
         self.chrome_options = webdriver.ChromeOptions()
+        
         self.chrome_options.add_argument('-incognito')
+        
         self.chrome_options.add_argument("--start-maximized")
+        
         self.chrome_options.add_argument('--disable-notifications')
+        
         self.chrome_options.add_argument('--disable-popup-blocking')
-        self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)
-
-        self.logger = logging.basicConfig(filename='rocketmiles.log', level=logging.DEBUG)
+        
+        self.driver = webdriver.Chrome(r'/home/helkirien/Drivers/chromedriver', options=self.chrome_options)`
 
 You’ll want to find the line: 
 
-        self.driver = webdriver.Chrome(r'/home/hugo/Drivers/chromedriver', options=self.chrome_options)
+        `self.driver = webdriver.Chrome(r'/home/hugo/Drivers/chromedriver', options=self.chrome_options)`
 
 Keep everything the same except for the '/home/hugo/Drivers/chromedriver' string. Keep the ‘ ‘ but change everything inside the ‘ ‘ to your Webdriver’s filepath. 
 
@@ -116,10 +124,10 @@ STC (Smoke Test Checkout)
 
 The timestamp format is as follows:
 
-YEAR_MONTH_DAY__HOURMINUTE_SECONDS
+`YEAR_MONTH_DAY__HOURMINUTE_SECONDS`
 
 The full filename should read (as an example):
 
-STC_log_2019_11_05__1504_50.log
+`STC_log_2019_11_05__1504_50.log`
 
 
