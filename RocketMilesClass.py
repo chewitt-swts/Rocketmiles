@@ -35,8 +35,8 @@ class RocketMiles:
         frontendPerformance_calc = domComplete - responseStart
 
         #Displaying loadtimes in console
-        print("Back End: %s" % backendPerformance_calc)
-        print("Front End: %s" % frontendPerformance_calc)
+        print('\t' + "Back End: %s" % backendPerformance_calc)
+        print('\t' + "Front End: %s" % frontendPerformance_calc)
 
         #Writing loadtimes to log
         backEnd = "Back End: %s" % backendPerformance_calc
