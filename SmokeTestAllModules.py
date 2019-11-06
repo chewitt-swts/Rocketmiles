@@ -14,18 +14,27 @@ RM = RocketMiles()
 
 
 #Error Logger
-    #Creates a date- and time-stamped filepath for the logfile. The filename syntax is an acronym for the module (in this case, Smoke Test All Modules), followed by a Year_Month_Day__Hour_Minute_Second timestamp.
-logSuffix = datetime.datetime.now()
-logName = "logs/SmokeTestAllModules/STAM_log_" + logSuffix.strftime("%Y_%m_%d__%H%M_%S") + ".log"
 
-    #Create a new log folder if none exists, then the log file.
+    #Create a new log folder if none exists.
 try:
-    os.mkdir("logs/SmokeTestAllModules/")
+    os.mkdir('logs/')
 except:
     print()
 
-logFileCreate = open(logName,"w+")
-logFileCreate.close()
+try:
+    os.mkdir('logs/SmokeTestAllModules')
+except:
+    print()
+
+    #Creating a date- and time-stamped filepath for the logfile. The filename syntax is an acronym for the module (in this case, Smoke Test All Modules), followed by a Year_Month_Day__Hour_Minute_Second timestamp.
+logSuffix = datetime.datetime.now()
+logName = 'logs/SmokeTestAllModules/STAM_log_' + logSuffix.strftime('%Y_%m_%d__%H%M_%S') + '.log'
+
+try:
+    logFileCreate = open(logName,"w+")
+    logFileCreate.close()
+except:
+    print()
 
     #Set up logging objects
 logsHandler = logging.handlers.WatchedFileHandler(os.environ.get("LOGFILE", logName))
